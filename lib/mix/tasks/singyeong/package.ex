@@ -44,7 +44,7 @@ defmodule Mix.Tasks.Singyeong.Package do
       |> File.ls!
       |> Enum.map(&to_charlist/1)
 
-    res = create_zip out, zipped_files, work_dir
+    _res = create_zip out, zipped_files, work_dir
     Logger.info "Created plugin zip #{out}."
   end
 
