@@ -5,6 +5,12 @@ defmodule Singyeong.Plugin do
   """
 
   @doc """
+  Provides information about the plugin. This is cached when the plugin is
+  loaded.
+  """
+  @callback manifest() :: Singyeong.Plugin.Manifest.t()
+
+  @doc """
   Called when the plugin is first loaded. Returns a list of children to be
   added to the initial supervision tree.
   """
