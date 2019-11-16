@@ -2,8 +2,9 @@ defmodule Singyeong.Plugin.Manifest do
   use TypedStruct
 
   typedstruct do
-    field :name, String.t(), enforce: true
-    field :description, String.t(), default: "My cool plugin."
-    field :website, String.t()
+    field(:name, String.t(), enforce: true)
+    field(:description, String.t(), default: "My cool plugin.")
+    field(:website, String.t())
+    field(:events, list(String.t()))
   end
 end
