@@ -25,3 +25,4 @@ singyeong_plugin-*.tar
 # Ignore plugin files and temp. workdir
 /*.zip
 /work
+/.elixir_ls
