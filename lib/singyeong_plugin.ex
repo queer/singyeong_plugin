@@ -6,8 +6,7 @@ defmodule Singyeong.Plugin do
 
   @type event() :: any()
   @type undo_state() :: any()
-  # TODO: This type is currently not a part of the API -- we should change this
-  @type frame() :: {:text, Singyeong.Gateway.Payload.t()}
+  @type frame() :: {:text, map()}
   @optional_callbacks handle_event: 2, undo: 2
 
   @doc """
