@@ -48,25 +48,24 @@ defmodule Singyeong.Plugin do
   On success, this function returns a tuple starting with either `:next` or
   `:halt`
 
-  In all cases, the third return element is the undo state. This is some state
-  that the plugin uses to undo any stateful changes it may have made during the
-  processing of this event, such that any error can result in a rollback of
-  stateful changes. Pure functions may simply return `nil` for the undo state,
-  or just not include it as an element of the tuple. **Note that a `nil` undo
-  state is assumed to mean that this function has *nothing* to undo, and as
-  such the undo function for this module will *never* be called if the event
-  handled by this function requires undo!** That is, **returning an undo state of
-  `nil` means that your undo function will never be called**. The reason for
-  this is simply that **the order in which `handle_event` vs `undo` is called
-  cannot be guaranteed**, and so you cannot rely on strict ordering of these
-  function calls for reliable undo behaviour.
+  In non-halt cases, the third return element is the undo state. This is some
+  state that the plugin uses to undo any stateful changes it may have made
+  during the processing of this event, such that any error can result in a
+  rollback of stateful changes. Pure functions may simply return `nil` for the
+  undo state, or just not include it as an element of the tuple. **Note that a
+  `nil` undo state is assumed to mean that this function has *nothing* to undo,
+  and as such the undo function for this module will *never* be called if the
+  event handled by this function requires undo!** That is, **returning an undo
+  state of `nil` means that your undo function will never be called**. The
+  reason for this is simply that **the order in which `handle_event` vs `undo`
+  is called cannot be guaranteed**, and so you cannot rely on strict ordering
+  of these function calls for reliable undo behaviour.
 
   # TODO: Provide a real interface for listening on all events.
   """
   @callback handle_event(binary(), any()) ::
               {:next, [frame()], undo_state()}
               | {:next, [frame()]}
-              | {:halt, undo_state()}
               | :halt
               | {:error, binary(), undo_state()}
               | {:error, binary()}
