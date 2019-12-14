@@ -66,8 +66,8 @@ defmodule Singyeong.Plugin do
   @callback handle_event(binary(), any()) ::
               {:next, [frame()], undo_state()}
               | {:next, [frame()]}
-              | {:halt, [frame()], undo_state()}
-              | {:halt, [frame()]}
+              | {:halt, undo_state()}
+              | :halt
               | {:error, binary(), undo_state()}
               | {:error, binary()}
 
