@@ -4,6 +4,8 @@ defmodule Mix.Tasks.Singyeong.Package do
 
   @shortdoc "Packages up a plugin from your compiled code + natives."
   def run(_) do
+    Mix.Task.run "compile"
+
     project =
       Mix.Project.config()[:app]
       |> Atom.to_string
