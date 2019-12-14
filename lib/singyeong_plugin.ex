@@ -8,6 +8,7 @@ defmodule Singyeong.Plugin do
   @type undo_state() :: any()
   # TODO: This type is currently not a part of the API -- we should change this
   @type frame() :: {:text, Singyeong.Gateway.Payload.t()}
+  @optional_callbacks handle_event: 2, undo: 2
 
   @doc """
   Provides information about the plugin. This is cached when the plugin is
