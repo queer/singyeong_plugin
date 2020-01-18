@@ -28,7 +28,7 @@ defmodule Mix.Tasks.Singyeong.Package do
     File.mkdir_p! beam_dir
     File.mkdir_p! natives_dir
 
-    plugin_code = scan_files project, File.exists?("_build/prod")
+    {plugin_code, native_code} = scan_files project, File.exists?("_build/prod")
 
     # Copy code into workdir
     plugin_code
@@ -41,6 +41,16 @@ defmodule Mix.Tasks.Singyeong.Package do
 
       File.copy! file, "#{beam_dir}/#{file_name}"
     end)
+    native_code
+    |> Enum.each(fn file ->
+      file_name =
+        file
+        |> String.split("/")
+        |> Enum.reverse
+        |> hd
+
+      File.copy! file, "#{natives_dir}/#{file_name}"
+    end`)
 
     # Zip it up
     zipped_files =
@@ -104,7 +114,20 @@ defmodule Mix.Tasks.Singyeong.Package do
         Enum.map files, fn file -> "#{base_path}/#{dir}/ebin/#{file}" end
       end)
 
-    plugin_code ++ plugin_dependency_code
+    plugin_native_code =
+      base_path
+      |> File.ls!
+      |> Enum.filter(fn dir -> dir == project_name end)
+      |> Enum.filter(fn dir -> File.exists?("#{base_path}/#{dir}/priv/native") end)
+      |> Enum.map(fn dir ->
+        files = File.ls! "#{base_path}/#{dir}/priv/native"
+        {dir, files}
+      end)
+      |> Enum.flat_map(fn {dir, files} ->
+        Enum.map files, fn file -> "#{base_path}/#{dir}/priv/native/#{file}" end
+      end)
+
+    {plugin_code ++ plugin_dependency_code, plugin_native_code}
   end
 
   defp create_zip(zip_name, files, cwd) do
