@@ -2,6 +2,17 @@ defmodule Singyeong.Plugin do
   @moduledoc """
   The base plugin behaviour. Your plugin should only have one module
   implementing this behaviour.
+
+  Note that this behaviour is explicitly, **intentionally** NOT implemented as
+  a GenServer or similar! You are, of course, free to implement all the
+  callbacks in this module as just `GenServer.call(me, :whatever)`, but this is
+  not going to be explicitly supported by this behaviour. The reasoning for
+  this is that it's significantly easier for runtime checks as to whether a
+  callback is implemented or not if the behaviour isn't implemented as a
+  GenServer-like module. Of course, plugin capabilities exist to help deal with
+  this concern, but I find that it's easier to simply not take that risk and
+  enforce a certain implementation style rather than risking potential runtime
+  crashes due to capabilities being claimed without implementation.
   """
 
   @type event() :: any()
