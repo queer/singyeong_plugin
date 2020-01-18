@@ -9,5 +9,5 @@ defmodule Singyeong.Plugin.Capabilities do
 
   def capabilities, do: @capabilities
 
-  defp is_capability?(atom), do: atom in @capabilities
+  def is_capability?(atom), do: atom in @capabilities
 end
