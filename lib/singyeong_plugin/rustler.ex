@@ -23,6 +23,7 @@ defmodule Singyeong.Plugin.Rustler do
         :code.purge __MODULE__
         tmp = System.tmp_dir!()
         so_path = "#{tmp}/native/#{@opts[:crate]}"
+        load_data = @opts[:load_data] || 0
         :erlang.load_nif so_path, load_data
       end
     end
