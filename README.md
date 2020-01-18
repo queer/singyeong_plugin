@@ -3,6 +3,8 @@
 A library that provides the plugin API for [신경](https://github.com/queer/singyeong).
 This library is not useful on its own, and must be used alongside a 신경 instance.
 
+An example plugin can be found here: https://github.com/queer/singyeong-test-plugin
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
