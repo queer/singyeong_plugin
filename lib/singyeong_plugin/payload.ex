@@ -7,9 +7,12 @@ defmodule Singyeong.Plugin.Payload do
 
   @spec create_payload(binary(), any()) :: {:text, map()}
   def create_payload(type, data) when is_binary(type) do
-    Singyeong.Gateway.Payload.create_payload Constants.gateway_opcodes_by_name()[:dispatch], type, data
+    dispatch = Constants.gateway_opcodes_by_name()[:dispatch]
+    apply payload_module(), :create_payload, [dispatch, type, data]
   end
   def create_payload(nil, _) do
     raise ArgumentError, "`type` is required when creating plugin payloads!"
   end
+
+  defp payload_module, do: Application.get_env :singyeong_plugin, :payload_module
 end
