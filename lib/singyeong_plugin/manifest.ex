@@ -7,5 +7,6 @@ defmodule Singyeong.Plugin.Manifest do
     field :website, String.t() | nil, default: nil
     field :events, [String.t()] | [], default: []
     field :capabilities, [atom()] | [], enforce: true
+    field :native_modules, [atom()] | [], default: []
   end
 end
