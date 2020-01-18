@@ -22,7 +22,9 @@ defmodule Singyeong.Plugin.Rustler do
       def __init__ do
         :code.purge __MODULE__
         tmp = System.tmp_dir!()
-        so_path = "#{tmp}/natives/#{@opts[:crate]}"
+        crate = @opts[:crate]
+        crate = if String.starts_with?(crate, "lib"), do: crate, else: "lib#{crate}"
+        so_path = "#{tmp}/natives/#{crate}"
         load_data = @opts[:load_data] || 0
         :erlang.load_nif so_path, load_data
       end
