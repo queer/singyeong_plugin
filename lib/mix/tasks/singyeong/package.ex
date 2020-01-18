@@ -50,7 +50,7 @@ defmodule Mix.Tasks.Singyeong.Package do
         |> hd
 
       File.copy! file, "#{natives_dir}/#{file_name}"
-    end`)
+    end)
 
     # Zip it up
     zipped_files =
