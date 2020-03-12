@@ -18,6 +18,8 @@ defmodule Singyeong.Plugin do
   @type event() :: any()
   @type undo_state() :: any()
   @type frame() :: {:text, map()}
+  @type auth_string() :: binary()
+  @type ip() :: binary()
   @optional_callbacks handle_event: 2, undo: 2
 
   @doc """
@@ -46,6 +48,8 @@ defmodule Singyeong.Plugin do
   Called when this plugin is supposed to handle an event. The events passed to
   this function are those specified in `Manifest.events` only. Built-in events
   will never be passed to this function.
+
+  Requires the `:custom_events` capability.
 
   Plugin event handling behaves in a middleware-type fashion. A plugin can
   choose to pass execution to the next plugin in the chain via `:next`, halt
@@ -90,4 +94,14 @@ defmodule Singyeong.Plugin do
   function, for any reason**.
   """
   @callback undo(binary(), undo_state()) :: :ok | {:error, binary()}
+
+  @doc """
+  Called when a client identifies with the server. The auth string the client
+  sends, as well as the client's IP address, are passed to this function. Note
+  that **there is no guarantee of IPv4 vs IPv6 address**, and your code should
+  be able to handle both cases.
+
+  Requires the `:auth` capability.
+  """
+  @callback auth(auth_string(), ip()) :: :ok, {:error, binary()}
 end
