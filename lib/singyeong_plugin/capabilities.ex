@@ -4,7 +4,8 @@ defmodule Singyeong.Plugin.Capabilities do
     :custom_events,
     :metadata_access,
     :event_creation,
-    :auth
+    :auth,
+    :rest,
   ]
 
   def capabilities, do: @capabilities
