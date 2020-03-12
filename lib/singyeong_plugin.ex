@@ -103,5 +103,5 @@ defmodule Singyeong.Plugin do
 
   Requires the `:auth` capability.
   """
-  @callback auth(auth_string(), ip()) :: :ok, {:error, binary()}
+  @callback auth(auth_string(), ip()) :: :ok | :restricted | {:error, binary()}
 end
