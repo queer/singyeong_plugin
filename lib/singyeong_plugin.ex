@@ -20,7 +20,8 @@ defmodule Singyeong.Plugin do
   @type frame() :: {:text, map()}
   @type auth_string() :: binary()
   @type ip() :: binary()
-  @optional_callbacks handle_event: 2, undo: 2
+  @type direction() :: :client | :server
+  @optional_callbacks handle_event: 2, undo: 2, handle_global_event: 3, global_undo: 3, auth: 2
 
   @doc """
   Provides information about the plugin. This is cached when the plugin is
@@ -107,12 +108,19 @@ defmodule Singyeong.Plugin do
 
   @doc """
   Behaves like `handle_event/2`, with several caveats:
-  - Undo is handled by `global_undo/2`.
+  - Undo is handled by `global_undo/3`.
   - The frame returned **should** be the same frame as was passed in, with any
     necessary modifications.
   - A list of frames cannot be returned, only a single frame.
+  - This function is called BEFORE the rest of the event processing pipeline.
+  - This function is aware of the "directionality" of an event, that is, this
+    function receives an argument telling it whether the direction of the event
+    is to the `:client` or to the `:server`. This argument is also passed to
+    `global_undo/3`.
+  - **This function is for events only, not all payloads.** Payloads such as
+    identify, heartbeat, ... will not ever be passed to this function.
   """
-  @callback handle_global_event(binary(), any()) ::
+  @callback handle_global_event(binary(), direction(), any()) ::
               {:next, frame(), undo_state()}
               | {:next, frame()}
               | :halt
@@ -120,7 +128,8 @@ defmodule Singyeong.Plugin do
               | {:error, binary()}
 
   @doc """
-  Behaves like `undo/2`, but for `handle_global_event/2`.
+  Behaves like `undo/2`, but for `handle_global_event/3`. See the docs for
+  `handle_global_event/3` for caveats to be aware of.
   """
-  @callback global_undo(binary(), undo_state()) :: :ok | {:error, binary()}
+  @callback global_undo(binary(), direction(), undo_state()) :: :ok | {:error, binary()}
 end
