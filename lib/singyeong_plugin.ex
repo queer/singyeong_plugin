@@ -121,7 +121,7 @@ defmodule Singyeong.Plugin do
   - **This function is for events only, not all payloads.** Payloads such as
     identify, heartbeat, ... will not ever be passed to this function.
   """
-  @callback handle_global_event(binary(), direction(), any()) ::
+  @callback handle_global_event(binary(), direction(), payload()) ::
               {:next, payload(), undo_state()}
               | {:next, payload()}
               | :halt
