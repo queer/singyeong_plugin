@@ -1,13 +1,35 @@
 defmodule SingyeongPlugin.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+  @repo_url "https://github.com/queer/singyeong_plugin"
+
   def project do
     [
       app: :singyeong_plugin,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+
+      # Hex
+      package: [
+        maintainers: ["amy"],
+        links: %{"GitHub" => @repo_url},
+        licenses: ["MIT"],
+      ],
+      description: "Plugin API for singyeong.",
+
+      # Docs
+      name: "singyeong_plugin",
+      docs: [
+        main: "singyeong_plugin",
+        homepage_url: "https://github.com/queer/singyeong",
+        source_url: @repo_url,
+        extras: [
+          "README.md",
+        ]
+      ],
     ]
   end
 
