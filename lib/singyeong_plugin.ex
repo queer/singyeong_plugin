@@ -17,6 +17,7 @@ defmodule Singyeong.Plugin do
 
   @type event() :: any()
   @type undo_state() :: any()
+  @type payload() :: map()
   @type frame() :: {:text, map()}
   @type auth_string() :: binary()
   @type ip() :: binary()
@@ -121,8 +122,8 @@ defmodule Singyeong.Plugin do
     identify, heartbeat, ... will not ever be passed to this function.
   """
   @callback handle_global_event(binary(), direction(), any()) ::
-              {:next, frame(), undo_state()}
-              | {:next, frame()}
+              {:next, payload(), undo_state()}
+              | {:next, payload()}
               | :halt
               | {:error, binary(), undo_state()}
               | {:error, binary()}
