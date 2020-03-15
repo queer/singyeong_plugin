@@ -3,7 +3,6 @@ defmodule Singyeong.Plugin.Capabilities do
     :all_events,
     :custom_events,
     :metadata_access,
-    :event_creation,
     :auth,
     :rest,
   ]

@@ -104,4 +104,23 @@ defmodule Singyeong.Plugin do
   Requires the `:auth` capability.
   """
   @callback auth(auth_string(), ip()) :: :ok | :restricted | {:error, binary()}
+
+  @doc """
+  Behaves like `handle_event/2`, with several caveats:
+  - Undo is handled by `global_undo/2`.
+  - The frame returned **should** be the same frame as was passed in, with any
+    necessary modifications.
+  - A list of frames cannot be returned, only a single frame.
+  """
+  @callback handle_global_event(binary(), any()) ::
+              {:next, frame(), undo_state()}
+              | {:next, frame()}
+              | :halt
+              | {:error, binary(), undo_state()}
+              | {:error, binary()}
+
+  @doc """
+  Behaves like `undo/2`, but for `handle_global_event/2`.
+  """
+  @callback global_undo(binary(), undo_state()) :: :ok | {:error, binary()}
 end

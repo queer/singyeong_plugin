@@ -10,6 +10,7 @@ defmodule Singyeong.Plugin.Payload do
     dispatch = Constants.gateway_opcodes_by_name()[:dispatch]
     apply payload_module(), :create_payload, [dispatch, type, data]
   end
+
   def create_payload(nil, _) do
     raise ArgumentError, "`type` is required when creating plugin payloads!"
   end

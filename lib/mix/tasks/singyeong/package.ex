@@ -41,6 +41,7 @@ defmodule Mix.Tasks.Singyeong.Package do
 
       File.copy! file, "#{beam_dir}/#{file_name}"
     end)
+
     native_code
     |> Enum.each(fn file ->
       file_name =
@@ -131,7 +132,7 @@ defmodule Mix.Tasks.Singyeong.Package do
   end
 
   defp create_zip(zip_name, files, cwd) do
-    files = Enum.map(files, &to_charlist/1)
+    files = Enum.map files, &to_charlist/1
 
     :zip.create zip_name, files, cwd: cwd
   end
