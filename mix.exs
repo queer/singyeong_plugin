@@ -1,7 +1,7 @@
 defmodule SingyeongPlugin.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
   @repo_url "https://github.com/queer/singyeong_plugin"
 
   def project do
@@ -23,7 +23,6 @@ defmodule SingyeongPlugin.MixProject do
       # Docs
       name: "singyeong_plugin",
       docs: [
-        main: "singyeong_plugin",
         homepage_url: "https://github.com/queer/singyeong",
         source_url: @repo_url,
         extras: [

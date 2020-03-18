@@ -76,8 +76,6 @@ defmodule Singyeong.Plugin do
   reason for this is simply that **the order in which `handle_event` vs `undo`
   is called cannot be guaranteed**, and so you cannot rely on strict ordering
   of these function calls for reliable undo behaviour.
-
-  # TODO: Provide a real interface for listening on all events.
   """
   @callback handle_event(binary(), any()) ::
               {:next, [frame()], undo_state()}
